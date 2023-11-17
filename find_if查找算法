@@ -1,0 +1,60 @@
+#include "iostream"
+using namespace std;
+#include "vector"
+#include "algorithm"
+class greatfive{
+public:
+    bool operator()(int val){
+        return val>5;
+    }
+};
+void test(){
+    vector<int >v;
+    for(int i=0;i<10;i++){
+        v.push_back(i);
+    }
+    vector<int >::iterator it= find_if(v.begin(),v.end(),greatfive());
+    if(it==v.end()){
+        cout<<"未找到"<<endl;
+    } else{
+        cout<<"找到大于五的数是"<<*it<<endl;
+    }
+}
+
+class person{
+public:
+
+    person(string name,int age){
+        this->m_name=name;
+        this->m_age=age;
+    }
+    string m_name;
+    int m_age;
+};
+class greater20{
+public:
+    bool operator()(person &p){
+        return p.m_age>20;
+    }
+};
+void test01(){
+    vector<person>v;
+    person p1("aaa",1);
+    person p2("ddd",2);
+    person p3("bbb",3);
+    person p4("ccc",4000);
+    v.push_back(p1);
+    v.push_back(p2);
+    v.push_back(p3);
+    v.push_back(p4);
+  vector<person>::iterator it=  find_if(v.begin(),v.end(),greater20());
+  if(it==v.end()){
+      cout<<"没找到"<<endl;
+  } else{
+      cout<<"找到了"<<it->m_name<<"  "<<it->m_age<<endl;
+  }
+}
+int main(){
+    test01();
+    return 0;
+}
